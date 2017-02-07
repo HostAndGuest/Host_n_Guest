@@ -2,7 +2,9 @@
 
 namespace PropertyBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
@@ -37,24 +39,59 @@ class Property
     protected $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column( type="array" )
      */
     protected $equipements;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column( type="array" )
      */
-    protected $reported;
+    protected $imagesPath;
+
+    /**
+     * @return mixed
+     */
+    public function getImagesPath()
+    {
+        return $this->imagesPath;
+    }
+
+    /**
+     * @param mixed $imagesPath
+     */
+    public function setImagesPath($imagesPath)
+    {
+        $this->imagesPath = $imagesPath;
+    }
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $location;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $enabled;
+    protected $reported = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $enabled = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      */
     protected $host;
+
+    /**
+     * Property constructor.
+     */
+    public function __construct()
+    {
+        $this->publicationDate = new \DateTime;
+    }
 
     /**
      * @return mixed
@@ -199,4 +236,25 @@ class Property
     {
         $this->host = $host;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param mixed $location
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+    }
+
+
+
+
+
 }

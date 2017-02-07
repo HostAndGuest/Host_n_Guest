@@ -32,10 +32,32 @@ class property_picture
      */
     protected $path;
 
+
     /**
      * @ORM\ManyToOne(targetEntity="PropertyBundle\Entity\Property")
      */
     protected $property;
+
+    private $uploaded_image;
+
+    /**
+     * @return mixed
+     */
+    public function getUploadedImage()
+    {
+        return $this->uploaded_image;
+    }
+
+    /**
+     * @param mixed $uploaded_image
+     */
+    public function setUploadedImage($uploaded_image)
+    {
+        $this->uploaded_image = $uploaded_image;
+    }
+
+
+
 
     /**
      * @return mixed

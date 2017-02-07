@@ -19,17 +19,17 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     protected $last_name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     protected $first_name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     protected $fb_access_token;
 
