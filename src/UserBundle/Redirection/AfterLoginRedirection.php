@@ -33,7 +33,9 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
         // Get list of roles for current user
         $roles = $token->getRoles();
         // Tranform this list in array
-        $rolesTab = array_map(function($role){return $role->getRole();}, $roles);
+        $rolesTab = array_map(function($role){
+                                    return $role->getRole();
+                                                }, $roles);
         // If is a admin we redirect to the backoffice area
         if (in_array('ROLE_ADMIN', $rolesTab, true) )
         {
