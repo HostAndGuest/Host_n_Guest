@@ -22,6 +22,11 @@ class Booking
     protected $term;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $reviewed;
+
+    /**
      * @ORM\Column(type="date")
      */
     protected $bookingDate;
@@ -66,6 +71,22 @@ class Booking
     public function setTerm($term)
     {
         $this->term = $term;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReviewed()
+    {
+        return $this->reviewed;
+    }
+
+    /**
+     * @param mixed $reviewed
+     */
+    public function setReviewed($reviewed)
+    {
+        $this->reviewed = $reviewed;
     }
 
     /**
