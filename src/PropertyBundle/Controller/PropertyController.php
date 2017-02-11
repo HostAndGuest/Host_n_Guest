@@ -32,7 +32,7 @@ class PropertyController extends Controller
             $em->flush();
             return $this->redirectToRoute('property_mylistpage');
         }
-        return $this->render('PropertyBundle:Property:add.html.twig', array('form'=>$form->createView()));
+        return $this->render('PropertyBundle:Property:add.html.twig', array('form'=>$form->createView(),'user'=>$this->getUser()));
     }
 
     public function updateAction(Request $request, $id){
@@ -71,13 +71,13 @@ class PropertyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->findAll();
        // var_dump(unserialize($logement));
-        return $this->render("PropertyBundle:Property:list.html.twig",array('logements'=>$logement));
+        return $this->render("PropertyBundle:Property:list.html.twig",array('logements'=>$logement,'user'=>$this->getUser()));
     }
 
     public function getPropertyAction($id) {
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->find($id);
-        return $this->render("PropertyBundle:Property:detail.html.twig",array('logement'=>$logement));
+        return $this->render("PropertyBundle:Property:detail.html.twig",array('logement'=>$logement,'user'=>$this->getUser()));
     }
 
 }

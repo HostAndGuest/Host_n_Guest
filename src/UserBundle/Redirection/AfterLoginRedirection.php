@@ -39,7 +39,7 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
         // If is a admin we redirect to the backoffice area
         if (in_array('ROLE_ADMIN', $rolesTab, true) )
         {
-            $redirection = new RedirectResponse($this->router->generate('user_adminpage'));
+            $redirection = new RedirectResponse($this->router->generate('user_adminPanel'));
         }
         // otherwise, if is a commercial user we redirect to the crm area
         else

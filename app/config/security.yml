@@ -3,8 +3,9 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER:  ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
 
     providers:
         fos_userbundle:
@@ -16,15 +17,31 @@ security:
              pattern: ^/(_(profiler|wdt)|css|images|js)/
              security: false
         main:
-            pattern: ^/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
+                    pattern: ^/
+                    form_login:
+                        check_path: /login_check
+                        login_path: /login
+                        use_forward: false
+                        always_use_default_target_path: false
+                        default_target_path:            /
+                        target_path_parameter:          _target_path
+                        use_referer:                    true
+                        failure_forward: false
+                        failure_path_parameter: _failure_path
+                        username_parameter: _username
+                        password_parameter: _password
+                        csrf_parameter: _csrf_token
+                        success_handler: redirect.login.after
+                        post_only:      true
+                        remember_me:    false
+                        require_previous_session: true
+                        provider: fos_userbundle
+                        csrf_token_generator: security.csrf.token_manager
+                        # if you are using Symfony < 2.8, use the following config instead:
+                        # csrf_provider: form.csrf_provider
 
-            logout:       true
-            anonymous:    true
+                    logout:       true
+                    anonymous:    true
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

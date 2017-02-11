@@ -1,0 +1,61 @@
+{% extends "indexBase.html.twig" %}
+{% block header_block %}
+<header>
+    <div id="top_line">
+        <div class="container">
+            {% block row_signin %}
+            <ul id="top_links">
+                <li><a href="#">{{ user }}</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+            </ul>
+            {% endblock row_signin %}
+        </div><!-- End container-->
+    </div><!-- End top line-->
+
+    <div id="top_header">
+        <div class="container">
+            {% block row_header %}
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div id="logo">
+                            <a href="#"><img src="{{ asset('front/img/logo.png') }}" width="240" height="40" alt="CountryHolidays" data-retina="true"></a>
+                        </div>
+                    </div>
+                    <nav class="col-md-8 col-sm-8 col-xs-8">
+                        <a class="cmn-toggle-switch cmn-toggle-switch__rot  open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+                        <div class="main-menu">
+                            <div id="header_menu">
+                                <img src="img\logo.png" width="240" height="40" alt="CountryHolidays" data-retina="true">
+                            </div>
+                            <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
+                            <ul>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);" class="show-submenu">Home </a>
+                                </li>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);" class="show-submenu">Properties <i class="icon-down-open-mini"></i></a>
+                                    <ul>
+                                        <li><a href="rooms_list.htm">Property List</a></li>
+                                        <li><a href="rooms_list.htm">My Properties</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="about.htm">Reservation</a></li>
+                                <li><a href="about.htm">Chat</a></li>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
+                                    <ul>
+                                        <li><a href="all_activities.htm">Nearby Events</a></li>
+                                        <li><a href="horses.htm">Search by Location</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="about.htm">About</a></li>
+                            </ul>
+                        </div><!-- End main-menu -->
+
+                    </nav>
+                </div>
+            {% endblock row_header %}
+        </div>
+    </div>
+</header><!-- End Header -->
+{% endblock header_block %}
