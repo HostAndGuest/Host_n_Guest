@@ -90,28 +90,50 @@
                         <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
                         <ul>
                             {% block propsmenu %}
-                            <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Home </a>
-                            </li>
-                            <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Properties <i class="icon-down-open-mini"></i></a>
-                                <ul>
+                                {% if (user is not null) and ('ROLE_ADMIN' not in user.getRoles() ) %}
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Home </a>
+                                    </li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Properties <i class="icon-down-open-mini"></i></a>
+                                        <ul>
 
-                                    <li><a href="#">Property List</a></li>
-                                    <li><a href="#">My Properties</a></li>
+                                            <li><a href="{{ path('property_allProp') }}">Property List</a></li>
+                                            <li><a href="{{ path('property_mylistpage') }}">My Properties</a></li>
 
-                                </ul>
-                            </li>
-                            <li><a href="#">Reservation</a></li>
-                            <li><a href="#">Chat</a></li>
-                            <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
-                                <ul>
-                                    <li><a href="#">Nearby Events</a></li>
-                                    <li><a href="#">Search by Location</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">About</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Reservation</a></li>
+                                    <li><a href="#">Chat</a></li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
+                                        <ul>
+                                            <li><a href="#">Nearby Events</a></li>
+                                            <li><a href="#">Search by Location</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">About</a></li>
+                                {% else  %}
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Home </a>
+                                    </li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Properties <i class="icon-down-open-mini"></i></a>
+                                        <ul>
+                                            <li><a href="{{ path('property_allProp') }}">Property List</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
+                                        <ul>
+                                            <li><a href="#">Nearby Events</a></li>
+                                            <li><a href="#">Search by Location</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">About</a></li>
+                                {% endif %}
+
+
                             {% endblock propsmenu %}
                         </ul>
                     </div><!-- End main-menu -->

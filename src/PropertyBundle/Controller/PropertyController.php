@@ -19,14 +19,16 @@ class PropertyController extends Controller
         $form->handleRequest($request);
         $pic_array = array();
         if($form->isValid() ){
+            $user = $this->getUser();
             $em=$this->getDoctrine()->getManager();
             $files = $form->get('imagesPath')->getData();
             foreach ($files as $fl) {
                 $name = $fl->getClientOriginalName();
                 $dir = __DIR__.'/../../../web/images/uploads';
                 $fl->move($dir, $name) ;
-                array_push($pic_array, "http://localhost/PHPstormProjects/Host_n_Guest/web/images/uploads/".$name);
+                array_push($pic_array, "../../../web/images/uploads/".$name);
             }
+            $property->setHost($user);
             $property->setImagesPath($pic_array);
             $em->persist($property);
             $em->flush();
@@ -48,7 +50,7 @@ class PropertyController extends Controller
                 $name = $fl->getClientOriginalName();
                 $dir = __DIR__.'/../../../web/images/uploads';
                 $fl->move($dir, $name) ;
-                array_push($pic_array, "http://localhost/PHPstormProjects/Host_n_Guest/web/images/uploads/".$name);
+                array_push($pic_array, "../../../web/images/uploads/".$name);
             }
             $logement->setImagesPath($pic_array);
             $em->persist($logement);
@@ -69,7 +71,7 @@ class PropertyController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $logement = $em->getRepository("PropertyBundle:Property")->findAll();
+        $logement = $em->getRepository("PropertyBundle:Property")->findBy(array('host'=> $this->getUser()));
        // var_dump(unserialize($logement));
         return $this->render("PropertyBundle:Property:list.html.twig",array('logements'=>$logement,'user'=>$this->getUser()));
     }
@@ -78,6 +80,21 @@ class PropertyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->find($id);
         return $this->render("PropertyBundle:Property:detail.html.twig",array('logement'=>$logement,'user'=>$this->getUser()));
+    }
+
+    public function reportAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $logement = $em->getRepository("PropertyBundle:Property")->find($id);
+        $logement->setReported(true);
+        $em->persist($logement);
+        $em->flush();
+        return $this->redirectToRoute('property_detailProp',array('id'=>$id));
+    }
+
+    public function allRoomAction(){
+        $em = $this->getDoctrine()->getManager();
+        $logement = $em->getRepository("PropertyBundle:Property")->findAll();
+        return $this->render("PropertyBundle:Property:allroom.html.twig",array('logement'=>$logement,'user'=>$this->getUser()));
     }
 
 }

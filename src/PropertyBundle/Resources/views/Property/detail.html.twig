@@ -21,24 +21,12 @@
         <div id="Img_carousel" class="slider-pro">
             <div class="sp-slides">
                 <div class="sp-slide">
-                    <img alt="" class="sp-image" src="{{ logement.imagesPath[0] }}" data-src="{{ logement.imagesPath[0] }}">
+                    <img alt="" class="sp-image" src="../{{ logement.imagesPath[0] }}" data-src="../{{ logement.imagesPath[0] }}">
                 </div>
 
                 {% for img in logement.imagesPath %}
                 <div class="sp-slide">
-                    <img alt="" class="sp-image" src="{{ img }}" data-src="{{ img }}">
-                    <p class="sp-layer sp-black sp-padding" data-position="bottomLeft" data-horizontal="5%" data-vertical="5%" data-width="90%" data-show-transition="up" data-show-delay="400">
-                        Picture - {{ loop.index }}
-                    </p>
-                </div>
-                <div class="sp-slide">
-                    <img alt="" class="sp-image" src="{{ img }}" data-src="{{ img }}">
-                    <p class="sp-layer sp-black sp-padding" data-position="bottomLeft" data-horizontal="5%" data-vertical="5%" data-width="90%" data-show-transition="up" data-show-delay="400">
-                        Picture - {{ loop.index }}
-                    </p>
-                </div>
-                <div class="sp-slide">
-                    <img alt="" class="sp-image" src="{{ img }}" data-src="{{ img }}">
+                    <img alt="" class="sp-image" src="../{{ img }}" data-src="../{{ img }}">
                     <p class="sp-layer sp-black sp-padding" data-position="bottomLeft" data-horizontal="5%" data-vertical="5%" data-width="90%" data-show-transition="up" data-show-delay="400">
                         Picture - {{ loop.index }}
                     </p>
@@ -48,9 +36,7 @@
 
             <div class="sp-thumbnails">
                 {% for img in logement.imagesPath %}
-                    <img alt="" class="sp-thumbnail" src="{{ img }}">
-                    <img alt="" class="sp-thumbnail" src="{{ img }}">
-                    <img alt="" class="sp-thumbnail" src="{{ img }}">
+                    <img alt="" class="sp-thumbnail" src="../{{ img }}">
                 {% endfor %}
             </div>
         </div>
@@ -176,11 +162,21 @@
                         <li ><img height="30px" width="30px" src="{{ asset('images/badge.png')  }}" ><b>{{ eq }}</b></li>
                     {% endfor %}
                 </ul>
+                <a onclick="alertReport()" href="javascript:void(0)"><img style="width: 50px;width: 50px" src="{{ asset('images/report.png') }}"><b style="color: red">&nbsp; Report Property </b></a>
+                <script>
+                    function alertReport() {
+                        var txt;
+                        var r = confirm("Are you sure to report this property !");
+                        if (r == true) {
+                            window.location.href="{{ path('property_reportProp',{'id':logement.id}) }}";
+                        }
+                    }
+                </script>
             </div>
             <div class=" box_style_2">
-                <i class="icon_set_1_icon-90"></i>
-                <h4>Need help ? Call us</h4>
-                <a href="" class="phone">+216 55 700 153</a>
+                <a href="#"><span style="font-size: 15px;font-weight: bold">Amazing.. ? Book Now !</span></a>
+                <a href="#"><img style="width: 70px;width: 70px" src="{{ asset('images/book.png') }}"></a>
             </div>
+
         </div>
     {% endblock facilities %}

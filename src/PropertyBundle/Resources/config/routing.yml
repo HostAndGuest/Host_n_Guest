@@ -16,4 +16,10 @@ property_updateProp:
 property_detailProp:
     path:     /detailProperty/{id}
     defaults: { _controller: PropertyBundle:Property:getProperty }
+property_reportProp:
+    path:     /reportProperty/{id}
+    defaults: { _controller: PropertyBundle:Property:report }
+property_allProp:
+    path:     /allProperty
+    defaults: { _controller: PropertyBundle:Property:allRoom }
 
