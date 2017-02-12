@@ -57,7 +57,6 @@ class PropertyController extends Controller
             $em->flush();
             return $this->redirectToRoute('property_mylistpage');
         }
-        return $this->render('PropertyBundle:Property:add.html.twig', array('form'=>$form->createView()));
     }
 
     public function deleteAction($id){
