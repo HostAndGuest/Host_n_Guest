@@ -118,7 +118,7 @@
                 <div class="intro_title_booking">
                     <h1 class="animated fadeInDown">Host and Guest pleasure</h1>
                     <p class="animated fadeInDown">Properties / Country Events / Pleasure</p>
-                    <a href="#" class="animated fadeInUp button_intro hidden-xs">View Properties</a>
+                    <a href="{{ path('property_allProp') }}" class="animated fadeInUp button_intro hidden-xs">View Properties</a>
                     <a href="#" class="animated fadeInUp button_intro outline hidden-xs">Events</a>
                 </div>
 
@@ -126,8 +126,8 @@
             <div class="col-md-4">
                 <div id="book">
                     <div id="message-booking"></div>
-                    <form role="form" method="post" action="assets/check_avail.php" id="check_avail" autocomplete="off">
-
+                    <div role="form"   id="check_avail" autocomplete="off">
+                        <h4 style="color: white;font-weight: bold">What are you looking for ?</h4>
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="form-group">
@@ -142,9 +142,9 @@
                                 <div class="form-group">
                                     <label>Price (TND) </label>
                                     <div class="qty-buttons">
-                                        <input type="button" value="-" class="qtyminus" name="adults">
-                                        <input type="text" name="adults" id="adults" value="" class="qty form-control" placeholder="0">
-                                        <input type="button" value="+" class="qtyplus" name="adults">
+                                        <input type="button" value="-" class="qtyminus" name="price">
+                                        <input type="text" name="price" id="price" value="" class="qty form-control" placeholder="0">
+                                        <input type="button" value="+" class="qtyplus" name="price">
                                     </div>
                                 </div>
                             </div>
@@ -152,9 +152,9 @@
                                 <div class="form-group">
                                     <label>Room Number</label>
                                     <div class="qty-buttons">
-                                        <input type="button" value="-" class="qtyminus" name="children">
-                                        <input type="text" name="children" id="children" value="" class="qty form-control" placeholder="0">
-                                        <input type="button" value="+" class="qtyplus" name="children">
+                                        <input type="button" value="-" class="qtyminus" name="nbroom">
+                                        <input type="text" name="nbroom" id="nbroom" value="" class="qty form-control" placeholder="0">
+                                        <input type="button" value="+" class="qtyplus" name="nbroom">
                                     </div>
                                 </div>
                             </div>
@@ -163,16 +163,16 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Location</label>
-                                    <input type="text" class="form-control" name="name_booking" id="name_booking" placeholder="Name and Last name">
+                                    <input type="text" class="form-control" name="location" id="location" placeholder="Location">
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <input type="submit" value="Search and Book now" class="btn_full" id="submit-booking">
+                                    <button onclick="search();" value="Search and Book now" class="btn_full" id="submit-booking">Search and Book now</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -341,6 +341,29 @@
         autoclose: true
 
     }).on('changeDate', function (ev) {});
+    
+    function search() {
+        url_search = window.location.pathname+ "property/searchProperty?";
+        price_val = $('input#price').val();
+        date_val = $('input#check_in').val();
+        location_val = $('input#location').val();
+        nbroom_val = $('input#nbroom').val();
+        if(price_val != ""){
+            url_search+="price="+price_val+"&";
+        }
+        if(date_val != ""){
+            url_search+="date="+date_val+"&";
+        }
+        if(location_val != ""){
+            url_search+="location="+location_val+"&";
+        }
+        if(nbroom_val != ""){
+            url_search+="nbroom" + nbroom_val+"&";
+        }
+        window.location.href = url_search;
+       // window.location.href = window.location.pathname+ "property/searchProperty/"+price_val
+        //  $('button#submit-booking').attr('href',wanted_href);
+    }
 </script>
 
 </body>

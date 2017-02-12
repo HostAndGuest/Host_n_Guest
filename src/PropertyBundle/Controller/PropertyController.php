@@ -71,7 +71,7 @@ class PropertyController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $logement = $em->getRepository("PropertyBundle:Property")->findBy(array('host'=> $this->getUser()));
+        $logement = $em->getRepository("PropertyBundle:Property")->findBy(array('host'=> $this->getUser(),'enabled'=>true));
        // var_dump(unserialize($logement));
         return $this->render("PropertyBundle:Property:list.html.twig",array('logements'=>$logement,'user'=>$this->getUser()));
     }
@@ -86,6 +86,7 @@ class PropertyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->find($id);
         $logement->setReported(true);
+        //$logement->getHost();
         $em->persist($logement);
         $em->flush();
         return $this->redirectToRoute('property_detailProp',array('id'=>$id));
@@ -93,7 +94,7 @@ class PropertyController extends Controller
 
     public function allRoomAction(){
         $em = $this->getDoctrine()->getManager();
-        $logement = $em->getRepository("PropertyBundle:Property")->findAll();
+        $logement = $em->getRepository("PropertyBundle:Property")->findBy(array('enabled'=>true));
         return $this->render("PropertyBundle:Property:allroom.html.twig",array('logement'=>$logement,'user'=>$this->getUser()));
     }
 
@@ -102,8 +103,31 @@ class PropertyController extends Controller
         $logs = $this->getDoctrine()->getRepository('PropertyBundle:Property')->findAll();
         $feed = $this->get('eko_feed.feed.manager')->get('property');
         $feed->addFromArray($logs);
-
         return new Response($feed->render('rss')); // ou 'atom'
+    }
+
+    public function searchPropertyAction(Request $request){
+        $price = $request->query->get('price');
+        $location = $request->query->get('location');
+        $nbroom = $request->query->get('nbroom');
+        $date = $request->query->get('date');
+        $em=$this->getDoctrine()->getManager();
+        $searchArray = array();
+        $searchArray['enabled'] = true;
+        if($nbroom != null){
+            $searchArray['nbRooms'] = $nbroom;
+        }
+        if($location != null){
+            $searchArray['location'] = $location;
+        }
+        if($price != null){
+            $searchArray['price'] = $price;
+        }
+        if($date != null){
+            $searchArray['date'] = $date;
+        }
+        $list = $em->getRepository('PropertyBundle:Property')->findBy($searchArray);
+        return $this->render("PropertyBundle:Property:allroom.html.twig",array('logement'=>$list,'user'=>$this->getUser()));
     }
 
 }
