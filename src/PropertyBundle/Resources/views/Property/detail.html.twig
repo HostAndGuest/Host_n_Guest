@@ -31,8 +31,9 @@
                         Picture - {{ loop.index }}
                     </p>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
 
             <div class="sp-thumbnails">
                 {% for img in logement.imagesPath %}
@@ -40,6 +41,7 @@
                 {% endfor %}
             </div>
         </div>
+
         <div id="single_room_feat">
             <ul>
                 {% for eq in logement.equipements %}
