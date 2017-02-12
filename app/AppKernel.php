@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new MessagingBundle\MessagingBundle(),
             new BookingBundle\BookingBundle(),
             new ReviewBundle\ReviewBundle(),
+            new Eko\FeedBundle\EkoFeedBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

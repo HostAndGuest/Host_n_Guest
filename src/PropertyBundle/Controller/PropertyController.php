@@ -97,4 +97,13 @@ class PropertyController extends Controller
         return $this->render("PropertyBundle:Property:allroom.html.twig",array('logement'=>$logement,'user'=>$this->getUser()));
     }
 
+    public function feedAction()
+    {
+        $logs = $this->getDoctrine()->getRepository('PropertyBundle:Property')->findAll();
+        $feed = $this->get('eko_feed.feed.manager')->get('property');
+        $feed->addFromArray($logs);
+
+        return new Response($feed->render('rss')); // ou 'atom'
+    }
+
 }

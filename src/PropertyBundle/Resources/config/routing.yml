@@ -22,4 +22,7 @@ property_reportProp:
 property_allProp:
     path:     /allProperty
     defaults: { _controller: PropertyBundle:Property:allRoom }
+property_feedProp:
+    path:     /feedProperty
+    defaults: { _controller: PropertyBundle:Property:feed }
 

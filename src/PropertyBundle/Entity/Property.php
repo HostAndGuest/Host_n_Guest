@@ -4,12 +4,13 @@ namespace PropertyBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Eko\FeedBundle\Item\Writer\ItemInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
  */
-class Property
+class Property implements ItemInterface
 {
     /**
      * @ORM\Id
@@ -254,9 +255,50 @@ class Property
     }
 
 
+    /**
+     * This method returns feed item title.
+     *
+     *
+     * @return string
+     */
+    public function getFeedItemTitle()
+    {
+        return "Property N° ".$this->getId()." Located in ".$this->getLocation();
+    }
 
+    /**
+     * This method returns feed item description (or content).
+     *
+     *
+     * @return string
+     */
+    public function getFeedItemDescription()
+    {
+        return "<b>Description: </b>".$this->getDescription()."<br><b>Price:</b>  "
+                .$this->getPrice()." TND<br> <b>Equipement: </b>".implode(" - ", $this->getEquipements());
 
+            ;
+    }
 
+    /**
+     * This method returns feed item URL link.
+     *
+     *
+     * @return string
+     */
+    public function getFeedItemLink()
+    {
+       return "http://localhost/PHPstormProjects/Host_n_Guest/web/app_dev.php/property/detailProperty/".$this->getId();
+    }
 
-
+    /**
+     * This method returns item publication date.
+     *
+     *
+     * @return \DateTime
+     */
+    public function getFeedItemPubDate()
+    {
+        return $this->getPublicationDate();
+    }
 }

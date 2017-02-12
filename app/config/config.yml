@@ -84,3 +84,11 @@ fos_user:
     from_email:
             address: you@example.com
             sender_name: You
+
+eko_feed:
+    feeds:
+        property:
+            title:       'Host and Guest Properties RSS Feed'
+            description: 'Latests Properties'
+            link: 'http://hostandguest.com'
+            encoding:    'utf-8'
