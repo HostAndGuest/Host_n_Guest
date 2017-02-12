@@ -1,0 +1,159 @@
+{% extends "tempBase.html.twig" %}
+
+    {% block styletemp %}
+    {% endblock styletemp %}
+
+    {% block sectionName %}
+        <section class="sub_header" id="bg_room">
+            <div class="sub_header_content">
+                <div class="animated fadeInDown">
+                    <h1>Property Details </h1>
+                    <p style="color: white">
+                        Host and Guest permet à des particuliers de louer tout ou une partie de leur propre habitation comme logement d'appoint
+                    </p>
+                </div>
+            </div>
+        </section><!-- End Section -->
+    {% endblock sectionName %}
+
+    {% block bodyContainer %}
+
+        <div id="Img_carousel" class="slider-pro">
+            <div class="sp-slides">
+                <div class="sp-slide">
+                    <img alt="" class="sp-image" src="../{{ logement.imagesPath[0] }}" data-src="../{{ logement.imagesPath[0] }}">
+                </div>
+
+                {% for img in logement.imagesPath %}
+                <div class="sp-slide">
+                    <img alt="" class="sp-image" src="../{{ img }}" data-src="../{{ img }}">
+                    <p class="sp-layer sp-black sp-padding" data-position="bottomLeft" data-horizontal="5%" data-vertical="5%" data-width="90%" data-show-transition="up" data-show-delay="400">
+                        Picture - {{ loop.index }}
+                    </p>
+                </div>
+                    {% endfor %}
+            </div>
+
+            <div class="sp-thumbnails">
+                {% for img in logement.imagesPath %}
+                    <img alt="" class="sp-thumbnail" src="../{{ img }}">
+                {% endfor %}
+            </div>
+        </div>
+        <div id="single_room_feat">
+            <ul>
+                {% for eq in logement.equipements %}
+                    <li><img height="50px" width="50px" src="{{ asset('images/icplus.png')  }}" ><b>{{ eq }}</b></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h3>Description</h3>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    {{ logement.description }}
+                </p>
+                <h4>Room facilities</h4>
+                <p>
+                    <b>LINA N7OTTOU L'experience mta3ou itha mawjoudaa !! </b>
+                </p>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <ul class="list_ok">
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>No scripta electram necessitatibus sit</li>
+                            <li>Quidam percipitur instructior an eum</li>
+                            <li>Ut est saepe munere ceteros</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <ul class="list_ok">
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>No scripta electram necessitatibus sit</li>
+                            <li>Quidam percipitur instructior an eum</li>
+                            <li>No scripta electram necessitatibus sit</li>
+                        </ul>
+                    </div>
+                </div><!-- End row  -->
+                <h4>Room Price</h4>
+                <!-- start pricing table -->
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td>With Experience </td>
+                        <td>70 TND</td>
+                    </tr>
+                    <tr>
+                        <td>Without Experience </td>
+                        <td>{{ logement.price }} TND</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- End col-md-9  -->
+        </div><!-- End row  -->
+
+
+
+    {% endblock bodyContainer %}
+
+    {% block listReviews %}
+        <div class="row">
+            <div class="col-md-3">
+                <h3>Reviews</h3>
+                <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
+            </div>
+            <div class="col-md-9">
+                {% block comments %}
+                    {% include '@Review/Review/get.html.twig' with {'reviews' : reviews, 'uid' : uid} %}
+                {% endblock %}
+
+            </div><!-- End review strip -->
+        </div>
+
+        <!-- Modal Review -->
+        <div class="modal fade" id="myReview" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myReviewLabel">Write your review</h4>
+                    </div>
+                    <div class="modal-body">
+                        {% block add_review %}
+                            {% include '@Review/Review/add.html.twig' with {'review_add_form' : add_review} %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock listReviews %}
+
+    {% block facilities %}
+        <div class="col-lg-3 col-md-4">
+            <div class="box_style_1" id="general_facilities">
+                <h3>General facilities</h3>
+                <ul>
+                    {% for eq in logement.equipements %}
+                        <li ><img height="30px" width="30px" src="{{ asset('images/badge.png')  }}" ><b>{{ eq }}</b></li>
+                    {% endfor %}
+                </ul>
+                <a onclick="alertReport()" href="javascript:void(0)"><img style="width: 50px;width: 50px" src="{{ asset('images/report.png') }}"><b style="color: red">&nbsp; Report Property </b></a>
+                <script>
+                    function alertReport() {
+                        var txt;
+                        var r = confirm("Are you sure to report this property !");
+                        if (r == true) {
+                            window.location.href="{{ path('property_reportProp',{'id':logement.id}) }}";
+                        }
+                    }
+                </script>
+            </div>
+            <div class=" box_style_2">
+                <a href="#"><span style="font-size: 15px;font-weight: bold">Amazing.. ? Book Now !</span></a>
+                <a href="#"><img style="width: 70px;width: 70px" src="{{ asset('images/book.png') }}"></a>
+            </div>
+
+        </div>
+    {% endblock facilities %}

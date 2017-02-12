@@ -1,0 +1,8 @@
+{#{% if is_not_allowed is not defined %}#}
+{% block add_review %}
+    {% if review_add_form != false %}
+        {{ form(review_add_form) }}
+    {% else %}
+        <h3>Sorry, you're not allowed to review</h3>
+    {% endif %}
+{% endblock %}

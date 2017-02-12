@@ -1,0 +1,9 @@
+services:
+#   Base controller's method get() is a shortcut for $this->container->get($id);.
+#   $this->container is set in one of the controller's parent - abstract class ContainerAware.
+#   So, until object construction is finished, there is no Controller object that would have get() method.
+#   In general, container is not available in Controller's constructor
+   review:
+       class: ReviewBundle\Controller\ReviewController
+       calls:
+                   - [ "setContainer", [ "@service_container" ] ]
