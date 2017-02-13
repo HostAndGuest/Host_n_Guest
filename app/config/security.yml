@@ -39,7 +39,13 @@ security:
                         csrf_token_generator: security.csrf.token_manager
                         # if you are using Symfony < 2.8, use the following config instead:
                         # csrf_provider: form.csrf_provider
-
+                    oauth:
+                        resource_owners:
+                            facebook:           "/login/check-facebook"
+                        login_path:        /login
+                        failure_path:      /login
+                        oauth_user_provider:
+                            service: my.custom.user_provider
                     logout:       true
                     anonymous:    true
 

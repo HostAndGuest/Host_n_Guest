@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new BookingBundle\BookingBundle(),
             new ReviewBundle\ReviewBundle(),
             new Eko\FeedBundle\EkoFeedBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
