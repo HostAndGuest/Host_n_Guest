@@ -1,6 +1,7 @@
 {% extends "tempBase.html.twig" %}
 
     {% block styletemp %}
+
     {% endblock styletemp %}
 
     {% block sectionName %}
@@ -53,7 +54,8 @@
             </div>
             <div class="col-md-9">
                 <p>
-                    {{ logement.description }}
+                    {{ logement.description }} <br>
+                    <b>Location : </b> {{ logement.location }}
                 </p>
                 <h4>Room facilities</h4>
                 <p>
