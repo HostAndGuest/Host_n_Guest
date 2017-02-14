@@ -25,7 +25,7 @@ class Property implements ItemInterface
     protected $nbRooms;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     protected $price;
 
