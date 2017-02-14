@@ -28,10 +28,12 @@ class User extends BaseUser
      */
     protected $first_name;
 
-    /**
-     * @ORM\Column(type="string", length=255,nullable=true)
-     */
-    protected $fb_access_token;
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebook_id;
+
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebook_access_token;
+
 
     public function __construct()
     {
@@ -90,16 +92,34 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getFbAccessToken()
+    public function getFacebookId()
     {
-        return $this->fb_access_token;
+        return $this->facebook_id;
     }
 
     /**
-     * @param mixed $fb_access_token
+     * @param mixed $facebook_id
      */
-    public function setFbAccessToken($fb_access_token)
+    public function setFacebookId($facebook_id)
     {
-        $this->fb_access_token = $fb_access_token;
+        $this->facebook_id = $facebook_id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebook_access_token;
+    }
+
+    /**
+     * @param mixed $facebook_access_token
+     */
+    public function setFacebookAccessToken($facebook_access_token)
+    {
+        $this->facebook_access_token = $facebook_access_token;
+    }
+
+
 }

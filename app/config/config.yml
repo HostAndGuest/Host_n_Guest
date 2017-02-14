@@ -92,3 +92,20 @@ eko_feed:
             description: 'Latests Properties'
             link: 'http://hostandguest.com'
             encoding:    'utf-8'
+
+hwi_oauth:
+    connect:
+        account_connector: my.custom.user_provider
+    firewall_names:        ["main"]
+    fosub:
+        username_iterations: 30
+        properties:
+            facebook:    facebook_id
+    resource_owners:
+        facebook:
+            type:          facebook
+            client_id:     389131371447552
+            client_secret: e48445644de4c9d28e8feda6942de177
+            scope:         ""
+            options:
+                display: popup #dialog is optimized for popup window
