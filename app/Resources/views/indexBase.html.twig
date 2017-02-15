@@ -220,7 +220,7 @@
             {% for log in listhome %}
             <div class="col-md-4 col-sm-4">
                 <div class="img_zoom" style=" height:190px">
-                    <a href="{{ path('property_detailProp',{'id':log.id}) }}"><img  src="Host_n_Guest{{ log.imagesPath[0]|replace({ 'web': '/web' }) }}" alt="" class="img-responsive"></a>
+                    <a href="{{ path('property_detailProp',{'id':log.id}) }}"><img  src="{{  app.request.getBaseURL()  }}Host_n_Guest{{ log.imagesPath[0]|replace({ 'web': '/web' }) }}" alt="" class="img-responsive"></a>
                 </div>
                 <h3>{{ log.location }} <span class="price_home">{{ log.price }} <em>TND</em></span></h3>
                 <p>

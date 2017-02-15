@@ -92,7 +92,7 @@
                             {% block propsmenu %}
                                 {% if (user is not null) and ('ROLE_ADMIN' not in user.getRoles() ) %}
                                     <li class="submenu">
-                                        <a href="javascript:void(0);" class="show-submenu">Home </a>
+                                        <a href="{{  app.request.getBaseURL()  }}" class="show-submenu">Home </a>
                                     </li>
                                     <li class="submenu">
                                         <a href="javascript:void(0);" class="show-submenu">Properties <i class="icon-down-open-mini"></i></a>
@@ -112,10 +112,10 @@
                                             <li><a href="#">Search by Location</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">About</a></li>
+                                    <li><a href="{{  app.request.getBaseURL()  }}#about">About</a></li>
                                 {% else  %}
                                     <li class="submenu">
-                                        <a href="javascript:void(0);" class="show-submenu">Home </a>
+                                        <a href="{{  app.request.getBaseURL()  }}" class="show-submenu">Home </a>
                                     </li>
                                     <li class="submenu">
                                         <a href="javascript:void(0);" class="show-submenu">Properties <i class="icon-down-open-mini"></i></a>
@@ -130,7 +130,7 @@
                                             <li><a href="#">Search by Location</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">About</a></li>
+                                    <li><a href="{{  app.request.getBaseURL()  }}#about">About</a></li>
                                 {% endif %}
 
 

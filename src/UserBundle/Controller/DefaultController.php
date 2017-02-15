@@ -10,8 +10,10 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
         $usr= $this->getUser();
-        return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr));
+        $logements = $em->getRepository("PropertyBundle:Property")->findBy(array(),array(),3);
+        return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr,'listhome'=>$logements));
     }
 
     public function adminAction()
@@ -22,8 +24,10 @@ class DefaultController extends Controller
     public function userHomeAction()
     {
         // get current user
+        $em = $this->getDoctrine()->getManager();
         $usr= $this->getUser();
-        return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr));
+        $logements = $em->getRepository("PropertyBundle:Property")->findBy(array(),array(),3);
+        return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr,'listhome'=>$logements));
     }
 
 
