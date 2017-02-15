@@ -95,11 +95,11 @@
                             <li class="submenu">
                                 <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
                                 <ul>
-                                    <li><a href="all_activities.htm">Nearby Events</a></li>
-                                    <li><a href="horses.htm">Search by Location</a></li>
+                                    <li><a href="#">Nearby Events</a></li>
+                                    <li><a href="#">Search by Location</a></li>
                                 </ul>
                             </li>
-                            <li><a href="about.htm">About</a></li>
+                            <li><a href="#about">About</a></li>
                         </ul>
                     </div><!-- End main-menu -->
 
@@ -181,12 +181,12 @@
     <div id="general_decor"></div>
 </div><!-- End Booking container -->
 
-<div class="container margin_60 padd_bottom_20">
+<div class="container margin_60 padd_bottom_20" id="about">
     <div class="main_title">
         <span></span>
-        <h2>We love Country Holidays</h2>
-        <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
+        <h2>We love Host and Guest</h2>
+        <p style="margin-top: 10px">
+            Find the perfect place to stay at an amazing price <b>Worldwide</b>  . Belong anywhere with Host and Guest..
         </p>
     </div>
     <div class="row">
@@ -194,27 +194,21 @@
             <div class="box_home">
                 <i class="icon_set_2_icon-104"></i>
                 <h3>Cozy and Charming rooms</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
+
             </div>
         </div>
         <div class="col-md-4">
             <div class="box_home">
                 <i class="icon_set_2_icon-108"></i>
                 <h3>Relax in a beautiful contest</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
+
             </div>
         </div>
         <div class="col-md-4">
             <div class="box_home">
                 <i class="icon_set_1_icon-40"></i>
                 <h3>Enjoy country side activities</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
+
             </div>
         </div>
     </div><!-- End row -->
@@ -223,42 +217,20 @@
 <div class="bg_gray add_bottom_60">
     <div class="container">
         <div class="row">
+            {% for log in listhome %}
             <div class="col-md-4 col-sm-4">
-                <div class="img_zoom">
-                    <a href="room_details.htm"><img src="img\room_1.jpg" alt="" class="img-responsive"></a>
+                <div class="img_zoom" style=" height:190px">
+                    <a href="{{ path('property_detailProp',{'id':log.id}) }}"><img  src="Host_n_Guest{{ log.imagesPath[0]|replace({ 'web': '/web' }) }}" alt="" class="img-responsive"></a>
                 </div>
-                <h3>Single Room <span class="price_home">$90<em>Per night</em></span></h3>
+                <h3>{{ log.location }} <span class="price_home">{{ log.price }} <em>TND</em></span></h3>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+                    {{ log.description|slice(0, 150) ~ '...'   }}
                 </p>
                 <p>
-                    <a href="#" class="btn_1">Read more</a>
+                    <a href="{{ path('property_detailProp',{'id':log.id}) }}" class="btn_1">Read more</a>
                 </p>
             </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="img_zoom">
-                    <a href="room_details.htm"><img src="img\room_2.jpg" alt="" class="img-responsive"></a>
-                </div>
-                <h3>Double Room <span class="price_home">$120<em>Per night</em></span></h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
-                <p>
-                    <a href="#" class="btn_1">Read more</a>
-                </p>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="img_zoom">
-                    <a href="room_details.htm"><img src="img\room_3.jpg" alt="" class="img-responsive"></a>
-                </div>
-                <h3>King double Room <span class="price_home">$140<em>Per night</em></span></h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
-                <p>
-                    <a href="#" class="btn_1">Read more</a>
-                </p>
-            </div>
+            {% endfor %}
         </div><!-- End row -->
     </div><!-- End container -->
 </div>
@@ -343,7 +315,7 @@
     }).on('changeDate', function (ev) {});
     
     function search() {
-        url_search = window.location.pathname+ "property/searchProperty?";
+        url_search = window.location.pathname+ "/property/searchProperty?";
         price_val = $('input#price').val();
         date_val = $('input#check_in').val();
         location_val = $('input#location').val();

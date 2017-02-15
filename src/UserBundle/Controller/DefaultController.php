@@ -10,7 +10,8 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('indexBase.html.twig',array());
+        $usr= $this->getUser();
+        return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr));
     }
 
     public function adminAction()

@@ -14,7 +14,9 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $usr= $this->getUser();
+        $logements = $em->getRepository("PropertyBundle:Property")->findBy(array(),array(),3);
         if($usr!=null){
             $roles = $usr->getRoles();
             // If is a admin we redirect to the backoffice area
@@ -22,9 +24,9 @@ class DefaultController extends Controller
             {
                 return $this->redirect($this->generateUrl('user_adminpage'));
             }
-            return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr));
+            return $this->render('UserBundle::indexUser.html.twig',array('user'=>$usr,'listhome'=>$logements));
         }
-        return $this->render('indexBase.html.twig',array());
+        return $this->render('indexBase.html.twig',array('listhome'=>$logements));
         //return $this->render('UserBundle:indexUser.html.twig',array('user'=>$usr));
 
         // replace this example code with whatever you need

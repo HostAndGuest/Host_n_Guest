@@ -179,6 +179,10 @@
                 <a href="#"><span style="font-size: 15px;font-weight: bold">Amazing.. ? Book Now !</span></a>
                 <a href="#"><img style="width: 70px;width: 70px" src="{{ asset('images/book.png') }}"></a>
             </div>
+            <div class=" box_style_2">
+                <a href="{{ path('property_detailProp',{'id':logement.host.id}) }}"><span style="font-size: 15px;font-weight: bold">Contact Host : {{ logement.host }}  </span></a>
+                <a href="#"><img style="width: 70px;width: 70px" src="{{ asset('images/iconchat.png') }}"></a>
+            </div>
 
         </div>
     {% endblock facilities %}
