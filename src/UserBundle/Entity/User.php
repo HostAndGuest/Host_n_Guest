@@ -34,7 +34,6 @@ class User extends BaseUser
     /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
     protected $facebook_access_token;
 
-
     public function __construct()
     {
         parent::__construct();

@@ -75,10 +75,22 @@ class PropertyController extends Controller
         return $this->render("PropertyBundle:Property:list.html.twig",array('logements'=>$logement,'user'=>$this->getUser()));
     }
 
-    public function getPropertyAction($id) {
+    public function getPropertyAction($id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->find($id);
-        return $this->render("PropertyBundle:Property:detail.html.twig",array('logement'=>$logement,'user'=>$this->getUser()));
+
+        $reviews = $this->get('review')->getReviewsAction($id, $request);
+
+        $add_review_call = $this->get('review')->addReviewAction($request, $id);
+        if ($add_review_call instanceof Response)
+            return $add_review_call;
+
+        $uid = $this->get('security.token_storage')->getToken()->getUser();
+        if ($uid != "anon.")
+            $uid->getId();
+
+        return $this->render("PropertyBundle:Property:detail.html.twig",array('logement'=>$logement,'user'=>$this->getUser(),
+            'reviews' => $reviews, 'add_review' => $add_review_call, "uid" => $uid));
     }
 
     public function reportAction($id){

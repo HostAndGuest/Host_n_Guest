@@ -14,12 +14,12 @@ class Review
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255, name="givenComment")
      */
-    protected $comment;
+    private $comment;
 
     /**
      * @ORM\Column(type="date")
@@ -56,7 +56,7 @@ class Review
     /**
      * @ORM\ManyToOne(targetEntity="BookingBundle\Entity\Booking")
      */
-    protected $booking;
+    private $booking;
 
     /**
      * @return mixed
