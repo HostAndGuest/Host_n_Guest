@@ -1,6 +1,10 @@
 {% extends "indexBase.html.twig" %}
 {% block header_block %}
 <header>
+
+
+    <script src="{{ asset('front/js/jquery-1.11.2.min.js') }}"></script>
+
     <div id="top_line">
         <div class="container">
             {% block row_signin %}
@@ -8,6 +12,31 @@
                 <li><a href="#">{{ user }}</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
             </ul>
+                <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+                <script>
+                    var OneSignal = window.OneSignal || [];
+                    OneSignal.push(["init", {
+                        appId: "076081d3-cbe8-4fed-925a-b09d50ecb266",
+                        autoRegister: true, /* Set to true to automatically prompt visitors */
+                        subdomainName: 'https://hostnguest.onesignal.com',
+                        /*
+                         subdomainName: Use the value you entered in step 1.4: http://imgur.com/a/f6hqN
+                         */
+                        httpPermissionRequest: {
+                            enable: true
+                        },
+                        notifyButton: {
+                            enable: true /* Set to false to hide */
+                        }
+                    }]);
+
+                    OneSignal.push(function() {
+                        /* These examples are all valid */
+                        OneSignal.sendTag("userid", {{ user.id }});
+                        // location.replace('http://ed289536.ngrok.io/PhpstormProjects/Host_n_Guest/web/app_dev.php/');
+                    });
+                </script>
+                {% include 'chatDiv.html.twig' %}
             {% endblock row_signin %}
         </div><!-- End container-->
     </div><!-- End top line-->
@@ -40,7 +69,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="#">Reservation</a></li>
-                                <li><a href="#">Chat</a></li>
+                                <li><a href="{{ path('messaging_getuserlist') }}">Chat</a></li>
                                 <li class="submenu">
                                     <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
                                     <ul>
@@ -58,4 +87,6 @@
         </div>
     </div>
 </header><!-- End Header -->
+
+
 {% endblock header_block %}

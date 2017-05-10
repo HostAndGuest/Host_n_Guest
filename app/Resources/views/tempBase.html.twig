@@ -30,6 +30,8 @@
     <!-- SPECIFIC CSS -->
     <link href="{{ asset('front/css/slider-pro.min.css') }}" rel="stylesheet">
 
+
+
     {% block styletemp %}
     <style>
 
@@ -62,6 +64,7 @@
                 <ul id="top_links">
                     {% block log %}
                     {% if (user is not null) and ('ROLE_ADMIN' not in user.getRoles() ) %}
+
                     <li><a href="#">{{ user }}</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                     {% else  %}
@@ -104,7 +107,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="#">Reservation</a></li>
-                                    <li><a href="#">Chat</a></li>
+                                    <li><a href="{{ path('messaging_getuserlist') }}">Chat</a></li>
                                     <li class="submenu">
                                         <a href="javascript:void(0);" class="show-submenu">Events <i class="icon-down-open-mini"></i></a>
                                         <ul>
@@ -131,6 +134,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{  app.request.getBaseURL()  }}#about">About</a></li>
+
                                 {% endif %}
 
 
@@ -217,6 +221,8 @@
 <!-- Specific scripts -->
 <script src="{{ asset('front/js/jquery.sliderPro.min.js') }}"></script>
 
+
+
 <script type="text/javascript">
     $( document ).ready(function( $ ) {
         $( '#Img_carousel' ).sliderPro({
@@ -235,11 +241,9 @@
         });
     });
 </script>
-{% javascripts 'front/js/custom_checkboxes.js'
-                'front/js/customInputRange.js'
-                'front/js/customTextArea.js' %}
-    <script  type="text/javascript" src="{{ asset_url }}"></script>
-{% endjavascripts %}
+
+
+
 
 </body>
 </html>

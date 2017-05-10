@@ -24,12 +24,12 @@
 
 
                 {% for img in logement.imagesPath %}
-                <div class="sp-slide">
-                    <img alt="" class="sp-image" src="../{{ img }}" data-src="../{{ img }}">
-                    <p class="sp-layer sp-black sp-padding" data-position="bottomLeft" data-horizontal="5%" data-vertical="5%" data-width="90%" data-show-transition="up" data-show-delay="400">
-                        Picture - {{ loop.index }}
-                    </p>
-                </div>
+                    <div class="sp-slide">
+                        <img alt="" class="sp-image" src="../{{ img }}" data-src="../{{ img }}">
+                        <p class="sp-layer sp-black sp-padding" data-position="bottomLeft" data-horizontal="5%" data-vertical="5%" data-width="90%" data-show-transition="up" data-show-delay="400">
+                            Picture - {{ loop.index }}
+                        </p>
+                    </div>
                 {% endfor %}
             </div>
 
@@ -116,40 +116,44 @@
                 {% endblock %}
 
             </div><!-- End review strip -->
-        </div>
+            <!-- Modal Review -->
 
-        <!-- Modal Review -->
-        <div class="modal fade" id="myReview" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myReviewLabel">Write your review</h4>
-                    </div>
-                    <div class="modal-body">
-                        {% block add_review %}
-                            {% include '@Review/Review/add.html.twig' with {'review_add_form' : add_review} %}
-                        {% endblock %}
+
+            <div class="modal fade" id="sortingForm" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myReviewLabel">Paramétrer Le Tri</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% block sort_review %}
+                                {% include '@Review/Review/sortForm.html.twig' with {'pid' : logement.id} %}
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="modal fade" id="sortingForm" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myReviewLabel">Paramétrer Le Tri</h4>
-                    </div>
-                    <div class="modal-body">
-                        {% block sort_review %}
-                            {% include '@Review/Review/sortForm.html.twig' with {'pid' : logement.id} %}
-                        {% endblock %}
+            <div class="modal fade" id="myReview" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myReviewLabel">Write your review</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% block add_review %}
+                                {% include '@Review/Review/add.html.twig' with {'review_add_form' : add_review} %}
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
+
     {% endblock listReviews %}
 
     {% block facilities %}
@@ -177,14 +181,12 @@
                 <a href="#"><img style="width: 70px;width: 70px" src="{{ asset('images/book.png') }}"></a>
             </div>
             <div class=" box_style_2">
-                <a href="{{ path('property_detailProp',{'id':logement.host.id}) }}"><span style="font-size: 15px;font-weight: bold">Contact Host : {{ logement.host }}  </span></a>
-                <a href="{{ path('property_detailProp',{'id':logement.host.id}) }}"><img style="width: 70px;width: 70px" src="{{ asset('images/iconchat.png') }}"></a>
-            </div>
-            {# Note : Requires Active Connection #}
-            <div class=" box_style_2">
-                {{ getFacebookLikeButton() }} <hr />
-                {{ getTwitterButton() }} <hr />
-                {{ getGoogleplusButton() }}
+                <a onclick="setUserId({{ logement.host.id }})" href="#"><span style="font-size: 15px;font-weight: bold">Contact Host : {{ logement.host }}  </span></a>
+                <a href="#" onclick="setUserId({{ logement.host.id }})"><img style="width: 70px;width: 70px" src="{{ asset('images/iconchat.png') }}"></a>
+
             </div>
         </div>
+        {% if user is not null %}
+        {% include 'chatDiv.html.twig' %}
+         {% endif %}
     {% endblock facilities %}

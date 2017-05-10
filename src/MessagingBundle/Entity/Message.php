@@ -1,13 +1,14 @@
 <?php
 
 namespace MessagingBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use FOS\MessageBundle\Entity\Message as BaseMessage;
 
 /**
  * @ORM\Entity
  */
-class Message
+class Message extends BaseMessage
 {
     /**
      * @ORM\Id
@@ -15,26 +16,62 @@ class Message
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(
+     *   targetEntity="MessagingBundle\Entity\Thread",
+     *   inversedBy="messages"
+     * )
+     * @var \FOS\MessageBundle\Model\ThreadInterface
      */
-    protected $message;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    protected $dateMessageSent;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
-     */
-    protected $user_sender;
+    protected $thread;
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     * @var \FOS\MessageBundle\Model\ParticipantInterface
      */
-    protected $user_receiver;
+    protected $sender;
+
+    /**
+     * @ORM\OneToMany(
+     *   targetEntity="MessagingBundle\Entity\MessageMetadata",
+     *   mappedBy="message",
+     *   cascade={"all"}
+     * )
+     * @var MessageMetadata[]|Collection
+     */
+    protected $metadata;
+
+    /**
+     * @return Collection|MessageMetadata[]
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param string $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
     /**
      * @return mixed
@@ -45,74 +82,19 @@ class Message
     }
 
     /**
-     * @param mixed $id
+     * @return \FOS\MessageBundle\Model\ThreadInterface
      */
-    public function setId($id)
+    public function getThread()
     {
-        $this->id = $id;
+        return $this->thread;
     }
 
     /**
-     * @return mixed
+     * @return \FOS\MessageBundle\Model\ParticipantInterface
      */
-    public function getMessage()
+    public function getSender()
     {
-        return $this->message;
+        return $this->sender;
     }
 
-    /**
-     * @param mixed $message
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDateMessageSent()
-    {
-        return $this->dateMessageSent;
-    }
-
-    /**
-     * @param mixed $dateMessageSent
-     */
-    public function setDateMessageSent($dateMessageSent)
-    {
-        $this->dateMessageSent = $dateMessageSent;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserSender()
-    {
-        return $this->user_sender;
-    }
-
-    /**
-     * @param mixed $user_sender
-     */
-    public function setUserSender($user_sender)
-    {
-        $this->user_sender = $user_sender;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserReceiver()
-    {
-        return $this->user_receiver;
-    }
-
-    /**
-     * @param mixed $user_receiver
-     */
-    public function setUserReceiver($user_receiver)
-    {
-        $this->user_receiver = $user_receiver;
-    }
 }

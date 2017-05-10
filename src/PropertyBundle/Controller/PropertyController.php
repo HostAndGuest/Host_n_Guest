@@ -14,6 +14,7 @@ class PropertyController extends Controller
 {
     public function addAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $property = new Property();
         $form = $this->CreateForm(PropertyType::class,$property);
         $form->handleRequest($request);
@@ -38,6 +39,7 @@ class PropertyController extends Controller
     }
 
     public function updateAction(Request $request, $id){
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->find($id);
         $pic_array = $logement->getImagesPath();
@@ -94,6 +96,7 @@ class PropertyController extends Controller
     }
 
     public function reportAction($id){
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $em = $this->getDoctrine()->getManager();
         $logement = $em->getRepository("PropertyBundle:Property")->find($id);
         $logement->setReported(true);

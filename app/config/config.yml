@@ -108,6 +108,11 @@ hwi_oauth:
             client_secret: e48445644de4c9d28e8feda6942de177
             scope:         ""
 
+fos_message:
+    db_driver:     orm
+    thread_class:  MessagingBundle\Entity\Thread
+    message_class: MessagingBundle\Entity\Message
+
 # KNP Paginator
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new ReviewBundle\ReviewBundle(),
             new Eko\FeedBundle\EkoFeedBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

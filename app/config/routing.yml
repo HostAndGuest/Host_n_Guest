@@ -43,3 +43,7 @@ hwi_oauth_redirect:
 
 facebook_login:
     path: /login/check-facebook
+
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /optional_routing_prefix

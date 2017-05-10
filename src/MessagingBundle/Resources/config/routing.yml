@@ -1,3 +1,12 @@
-messaging_homepage:
+messaging_home:
     path:     /
-    defaults: { _controller: MessagingBundle:Default:index }
+    defaults: { _controller: MessagingBundle:Message:inbox }
+messaging_homepage:
+    path:     /send
+    defaults: { _controller: MessagingBundle:Message:sendTo }
+messaging_get:
+    path:     /get
+    defaults: { _controller: MessagingBundle:Message:loadConversation }
+messaging_getuserlist:
+    path:     /userlist
+    defaults: { _controller: MessagingBundle:Message:getUserList }
